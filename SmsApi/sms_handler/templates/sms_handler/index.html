@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            crossorigin="anonymous">
+        <title>Send SMS</title>
+    </head>
+
+    <body>
+        <div class="container" dir="ltr">
+            <h1>Send new Message</h1>
+
+
+            <form action="{% url 'sms_handler:send' %}" method="post" class="form">
+            {% csrf_token %}
+                <label for="message">Message Content:</label>
+                <br>
+                <input type="text" name="message" id="message" maxlength="150" required>
+                <br>
+                <label for="image">Image</label>
+                <br>
+                <input type="tel" name="phone_number" id="phone_number" placeholder="09361457810" pattern="[0-9]{11}" required>
+                <br>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </body>
+</html>

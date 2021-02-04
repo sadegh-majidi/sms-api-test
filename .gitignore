@@ -1,0 +1,7 @@
+lib/
+bin/
+pyvenv.cfg
+.idea/
+SmsApi/db.sqlite3
+SmsApi/SmsApi/__pycache__/
+SmsApi/sms_handler/__pycache__/
