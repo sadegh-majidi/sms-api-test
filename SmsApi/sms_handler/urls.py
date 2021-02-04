@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import send_sms
+from .views import SmsSenderApiView, NewSmsFormApiView
 
 
 app_name = 'sms_handler'
 
 urlpatterns = [
-    path('send/', send_sms, name='send'),
+    path('send/', SmsSenderApiView.as_view(), name='send'),
+    path('new/', NewSmsFormApiView.as_view(), name='new_form')
 ]

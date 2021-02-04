@@ -1,10 +1,31 @@
-from django.shortcuts import render
-from kavenegar import *
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
+from .serializers import SmsSerializer
+from .models import Sms
+from django.shortcuts import reverse
+from rest_framework.views import APIView
+from rest_framework.renderers import TemplateHTMLRenderer
 
 
-def send_sms(request):
-    api = KavenegarAPI('775A3371715A71336C7763436A6555746C6D614E4758636A6548386949516578424B3675686F454F7A33513D')
-    params = {'sender': '1000596446', 'receptor': '09361457810', 'message': 'دستتو بذار تو جیبتو برو.'}
-    response = api.sms_send(params)
-    return HttpResponse('all good')
+class NewSmsFormApiView(APIView):
+    template_name = 'sms_handler/index.html'
+    renderer_classes = [TemplateHTMLRenderer]
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response({})
+
+
+class SmsSenderApiView(CreateAPIView):
+    serializer_class = SmsSerializer
+    queryset = Sms.objects.all()
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        super().create(request, *args, **kwargs)
+        return HttpResponseRedirect(redirect_to=reverse('sms_handler:new_form'))
+
+    def perform_create(self, serializer):
+        super().perform_create(serializer)
