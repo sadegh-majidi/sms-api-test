@@ -26,6 +26,3 @@ class SmsSenderApiView(CreateAPIView):
     def create(self, request, *args, **kwargs):
         super().create(request, *args, **kwargs)
         return HttpResponseRedirect(redirect_to=reverse('sms_handler:new_form'))
-
-    def perform_create(self, serializer):
-        super().perform_create(serializer)
